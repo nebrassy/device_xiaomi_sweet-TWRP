@@ -38,6 +38,14 @@ service variant-script /system/bin/variant-script.sh
     oneshot
     seclabel u:r:recovery:s0
 
+service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
+    user root
+    group root
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
+
 on boot
     start variant-script
+    start vendor.qti.vibrator
     setprop sys.usb.config adb
