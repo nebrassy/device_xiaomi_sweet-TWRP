@@ -80,6 +80,7 @@ on boot
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=1000,rmode=0770,fmode=0660
     write /sys/class/android_usb/android0/f_ffs/aliases adb
     setprop vendor.usb.controller ${sys.usb.controller}
+    setprop sys.usb.configfs 1
 
 on property:sys.usb.config=none
     write /config/usb_gadget/g1/UDC "none"
@@ -122,3 +123,20 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
+
+
+on property:ro.boot.recover_usb=*
+    write /sys/bus/platform/devices/a600000.ssusb/mode "peripheral"
+
+on property:ro.boot.usbconfigfs=false
+   setprop sys.usb.configfs 0
+
+on property:ro.boot.usbcontroller=*
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+
+on property:sys.usb.config=fastboot
+    start servicemanager
+    start hwservicemanager
+    restart fastbootd
+
+
