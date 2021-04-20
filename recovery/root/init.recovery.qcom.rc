@@ -48,4 +48,33 @@ service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
 on boot
     start variant-script
     start vendor.qti.vibrator
+    start vibratorfeature-hal-1-0
     setprop sys.usb.config adb
+
+on fs
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist
+    mkdir /mnt/vendor
+    symlink /persist /mnt/vendor/persist
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8624_haptic/2-005a/custom_wave
+    mkdir /sys/class/leds/vibrator
+    symlink /sys/bus/i2c/drivers/aw8624_haptic/2-005a /sys/class/leds/vibrator
+
+service vibratorfeature-hal-1-0 /system/bin/vendor.xiaomi.hardware.vibratorfeature@1.0-service
+    user root
+    group root
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
+    onrestart restart vibratorfeature
