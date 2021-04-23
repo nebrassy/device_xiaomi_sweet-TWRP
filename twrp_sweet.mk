@@ -21,15 +21,14 @@ DEVICE_PATH := device/xiaomi/sweet
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
-$(call inherit-product, vendor/twrp/soong/makevars.mk)
+$(call inherit-product, vendor/twrp/config/common.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/xiaomi/sweet/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := sweet
-PRODUCT_NAME := omni_sweet
+PRODUCT_NAME := twrp_sweet
 PRODUCT_BRAND := Redmi
 PRODUCT_MODEL := M2101K6G
 PRODUCT_MANUFACTURER := Xiaomi

@@ -18,6 +18,9 @@
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080
 
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/qcom/opensource/commonsys-intf/display
+
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
@@ -30,8 +33,6 @@ TARGET_OTA_ASSERT_DEVICE := sweet,sweetin
 TARGET_COPY_OUT_VENDOR := vendor
 
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root)
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
