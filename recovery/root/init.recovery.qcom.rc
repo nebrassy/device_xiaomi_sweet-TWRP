@@ -34,9 +34,13 @@ service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     seclabel u:r:recovery:s0
 
-on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+service vibratorfeature-hal-1-0 /system/bin/vendor.xiaomi.hardware.vibratorfeature@1.0-service
+    user root
+    group root
+    disabled
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
+    seclabel u:r:recovery:s0
+    onrestart restart vibratorfeature
 
 service variant-script /system/bin/variant-script.sh
     user root
@@ -45,8 +49,26 @@ service variant-script /system/bin/variant-script.sh
     oneshot
     seclabel u:r:recovery:s0
 
+on fs
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/2-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8697_haptic/3-005a/custom_wave
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/f0_save
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/osc_save
+    chown system system /sys/bus/i2c/drivers/aw8624_haptic/2-005a/custom_wave
+    chmod 0666  /sys/bus/i2c/drivers/aw8624_haptic/2-005a/custom_wave
+
 on boot
     start variant-script
     start health-hal-2-1
     start vendor.qti.vibrator
+    start vibratorfeature-hal-1-0
     setprop sys.usb.config adb
