@@ -21,7 +21,7 @@ jobs:
       - name: Syncing PBRP sources
         run: |
           mkdir ~/PBRP
-          cd ~/TWRP
+          cd ~/PBRP
           mkdir ~/.bin
           curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           python3 ~/.bin/repo init --depth=1 -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-11.0
