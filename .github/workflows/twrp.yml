@@ -27,7 +27,7 @@ jobs:
           cd ~/TWRP
           mkdir ~/.bin
           curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
-          python3 ~/.bin/repo init --depth=1 -u https://github.com/TeamWin/android_bootable_recovery.git -b android-11.0
+          python3 ~/.bin/repo init --depth=1 -u https://github.com/TeamWin/android_bootable_recovery.git -b android-11
           python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
           git clone --branch twrp-9.0 --single-branch https://github.com/ValerieOSS/recovery-device_xiaomi_sweet.git ~/TWRP/device/xiaomi/sweet
           chmod -R a+x device/xiaomi/sweet
