@@ -2,10 +2,6 @@ name: PBRP
 
 on:
   workflow_dispatch:
-  push:
-    # only trigger on branches, not on tags
-    branches: '**'
-
 
 jobs:
   build:
@@ -30,6 +26,7 @@ jobs:
           curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           python3 ~/.bin/repo init --depth=1 -u https://github.com/PitchBlackRecoveryProject/manifest_pb -b android-11.0
           python3 ~/.bin/repo sync -c --optimized-fetch --no-tags
+          rm -rf .repo
           git clone --branch android-11 --single-branch https://github.com/LunaOSS/recovery-device_xiaomi_sweet.git ~/PBRP/device/xiaomi/sweet
           chmod -R a+x device/xiaomi/sweet
       - name: Building PBRP
