@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: TWRP Build CI
-    runs-on: ubuntu-18.04
+    runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v2
