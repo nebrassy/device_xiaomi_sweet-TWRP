@@ -22,6 +22,7 @@ jobs:
           sudo ln -f -s /usr/bin/python2.7 /usr/bin/python
       - name: Syncing TWRP sources
         run: |
+          rm -rf ~/TWRP
           mkdir ~/TWRP
           cd ~/TWRP
           mkdir ~/.bin
