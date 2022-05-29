@@ -25,6 +25,7 @@ jobs:
           rm -rf ~/TWRP
           mkdir ~/TWRP
           cd ~/TWRP
+          rm -rf ~/.bin
           mkdir ~/.bin
           curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
           python3 ~/.bin/repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-11
