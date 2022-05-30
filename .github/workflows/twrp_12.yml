@@ -22,7 +22,7 @@ jobs:
           python3 ~/.bin/repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
           python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
           rm -rf .repo
-          git clone --branch android-11 --single-branch https://github.com/ValerieOSS/recovery-device_xiaomi_sweet.git ~/TWRP/device/xiaomi/sweet
+          git clone --branch android-11 --single-branch https://github.com/ValerieOSS/recovery-device_xiaomi_sweet.git ~/TWRP12/device/xiaomi/sweet
           chmod -R a+x device/xiaomi/sweet
       - name: Building TWRP
         run: |
