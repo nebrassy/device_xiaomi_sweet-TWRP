@@ -1,4 +1,4 @@
-name: TWRP
+name: TWRP Upload
 
 on:
   workflow_dispatch:
