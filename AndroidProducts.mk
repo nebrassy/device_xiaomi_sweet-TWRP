@@ -17,4 +17,4 @@
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/twrp_sweet.mk
 
-COMMON_LUNCH_CHOICES := omni_sweet-eng
+COMMON_LUNCH_CHOICES := twrp_sweet-eng
