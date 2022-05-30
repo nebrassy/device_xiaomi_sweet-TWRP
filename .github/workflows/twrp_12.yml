@@ -1,0 +1,48 @@
+name: TWRP
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    name: TWRP Build CI
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Installing build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip gcc-multilib g++-multilib \
+            libc6-dev-i386 lib32ncurses5-dev lib32z1-dev \
+            libgl1-mesa-dev libxml2-utils xsltproc schedtool git \
+            make
+          sudo ln -f -s /usr/bin/python2.7 /usr/bin/python
+      - name: Syncing TWRP sources
+        run: |
+          rm -rf ~/TWRP12
+          mkdir ~/TWRP12
+          cd ~/TWRP12
+          rm -rf ~/.bin
+          mkdir ~/.bin
+          curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+          python3 ~/.bin/repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
+          python3 ~/.bin/repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
+          rm -rf .repo
+          git clone --branch android-11 --single-branch https://github.com/ValerieOSS/recovery-device_xiaomi_sweet.git ~/TWRP/device/xiaomi/sweet
+          chmod -R a+x device/xiaomi/sweet
+      - name: Building TWRP
+        run: |
+          cd ~/TWRP12
+          source build/envsetup.sh
+          export ALLOW_MISSING_DEPENDENCIES=true
+          export LC_ALL=C
+          lunch omni_sweet-eng
+          make -j$(nproc --all) recoveryimage
+      - name: Uploading TWRP builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: twrp-12.1
+          path: /home/val/TWRP12/out/target/product/sweet/recovery.*
