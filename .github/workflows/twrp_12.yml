@@ -1,4 +1,4 @@
-name: TWRP
+name: TWRP 12.1
 
 on:
   workflow_dispatch:
