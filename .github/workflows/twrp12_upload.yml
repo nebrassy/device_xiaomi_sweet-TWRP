@@ -1,4 +1,4 @@
-name: TWRP12.1 Upload
+name: TWRP12 Upload
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: TWRP12.1 Upload CI
+    name: TWRP12 Upload
     runs-on: self-hosted
 
     steps:
