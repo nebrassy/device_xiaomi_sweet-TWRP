@@ -1,0 +1,19 @@
+name: TWRP12.1 Upload
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    name: TWRP12.1 Upload CI
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Uploading TWRP builds
+        uses: actions/upload-artifact@v2
+        with:
+          name: twrp
+          path: /home/val/TWRP12/out/target/product/sweet/recovery.*
