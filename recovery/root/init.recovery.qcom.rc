@@ -34,7 +34,7 @@ service vendor.qti.vibrator /system/bin/vendor.qti.hardware.vibrator.service
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib:/system/lib64:/system/lib:/sbin
     seclabel u:r:recovery:s0
 
-service vibratorfeature-hal-1-0 /system/bin/vendor.xiaomi.hardware.vibratorfeature@1.0-service
+service vibratorfeature-hal /system/bin/vendor.xiaomi.hardware.vibratorfeature.service
     user root
     group root
     disabled
